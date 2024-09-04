@@ -18,7 +18,7 @@ Create Table Users (
     id_user int primary key auto_increment not Null,
     username varchar(50) not null,
     email varchar(100) not null,
-    passcode varchar(100) not null,
+    contrasena varchar(100) not null,
     id_rol int,
     Foreign Key (id_rol) References Roles(id_rol)
 );
@@ -156,4 +156,63 @@ DELIMITER $$
         end $$
 DELIMITER ;
 
+-- ----------------------------------------- Vacation Stored Procedure
+-- Add vacation
+
+DELIMITER $$
+	Create procedure sp_addVacation(in idUser int, in firstDate date, in secondDate date, in observation varchar(200), in stage varchar(30))
+		begin
+			insert into Vacation(id_user, start_date, end_date, comments, state)
+				values (idUser, firstDate, secondDate, observation, stage);
+        end $$
+DELIMITER ;
+
+call sp_addVacation(1, '2024-09-24', '2024-10-03', 'I am going in a family trip', 'ACCEPTED');
+
+-- List Vacations
+
+DELIMITER $$
+	Create procedure sp_listVacation()
+		begin
+			select V.id_vacation, V.id_user, V.start_date, V.end_date, V.comments, V.state
+				from Vacation V;
+        end $$
+DELIMITER ;
+
+call sp_listVacation();
+
+-- Update Vacations
+
+
+DELIMITER $$
+	Create procedure sp_updateVacation(in idVacation int, in idUser int, in firstDate date, in secondDate date, in observation varchar(200), in stage varchar(30))
+		begin
+			Update Vacation
+				set id_user = idUser, start_date = firstDate, end_date = secondDate, comments = observation, state = stage
+					where id_vacation = idVacation;
+        end $$
+DELIMITER ;
+
+
+-- Search Vacations
+
+
+DELIMITER $$
+	Create procedure sp_searchVacation(in idVacation int)
+		begin
+			select V.id_vacation, V.id_user, V.start_date, V.end_date, V.comments, V.state
+					from Vacation V
+						where id_vacation = idVacation;
+		end $$
+DELIMITER ;
+
+-- Delete Vacations
+
+DELIMITER $$
+	Create procedure sp_deleteVacation(in idVacation int)
+		begin
+			Delete from Vacation
+				where id_vacation =  idVacation;
+        end $$
+DELIMITER ;
 
