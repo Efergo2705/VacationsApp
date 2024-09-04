@@ -216,3 +216,65 @@ DELIMITER $$
         end $$
 DELIMITER ;
 
+-- ----------------------------------------- Request Stored Procedure
+-- Add request
+
+DELIMITER $$
+	Create procedure sp_addRequest(in iduser int, in idvacation int, in requestDate date, in requestState varchar(50))
+		begin
+			insert into Request(id_user, id_vacation, request_date, request_state)
+				values (iduser, idvacation, requestDate, requestState);
+		end $$
+DELIMITER ;
+
+call sp_addRequest(1, 1,'2024-10-03', 'ACTIVE' );
+call sp_addRequest(1, 1,'2024-10-03', 'INACTIVE');
+-- List Request
+
+DELIMITER $$
+	Create procedure sp_listRequest()
+		begin
+			select R.id_request, R.id_user, R.id_vacation, R.request_date, R.request_state
+				from Request R;
+        end $$
+DELIMITER ;
+
+call sp_listRequest();
+-- Update Request
+
+DELIMITER $$
+	Create procedure sp_updateRequest(in idRequest int, in idUser int, in idVacation int, in requestDate date, in requestState varchar(50))
+    begin
+		update Request
+			set id_user = idUser, id_vacation = idVacation, request_date = requestDate, request_state = requestState
+				where id_request = idRequest;
+    end $$
+DELIMITER ;
+
+call sp_updateRequest(2,1,1,'1999-10-03', 'INACTIVE');
+call sp_listRequest();
+
+-- Search Request
+
+DELIMITER $$
+	Create procedure sp_searchRequest(in idRequest int)
+		begin
+			select R.id_request, R.id_user, R.id_vacation, R.request_date, R.request_state
+				from Request R
+					where id_request = idRequest;
+        end $$
+DELIMITER ;
+
+call sp_searchRequest(2);
+
+-- Delete Request
+DELIMITER $$
+	create procedure sp_deleteRequest(in idRequest int)
+		begin
+			delete from Request
+				where id_request = idRequest;
+		end $$
+DELIMITER ;
+
+call sp_deleteRequest(2);
+call sp_listRequest();	
