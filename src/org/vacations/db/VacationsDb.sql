@@ -43,3 +43,61 @@ Create Table Request(
     Foreign key (id_vacation) references Vacation(id_vacation)
 );
 
+-- ----------------------------------------- Roles Stored Procedure
+-- Add Rol
+
+DELIMITER $$
+	Create procedure sp_addRoles(in rol varchar(50))
+		begin
+			Insert into Roles (name_rol) 
+				values (rol);
+		end $$
+DELIMITER ;
+
+call sp_addRoles('Jefe');
+call sp_addRoles('trabajador');
+
+-- List Rol
+
+DELIMITER $$
+	Create procedure sp_listRoles()
+		Begin
+			select R.id_rol, 
+            R.name_rol
+				from Roles R;
+		End $$
+DELIMITER ;
+
+-- Update Rol
+
+DELIMITER $$
+	Create procedure sp_updateRoles(in cod_rol int ,in rol varchar(50))
+		begin
+			update Roles
+				set name_rol = rol where id_rol = cod_rol;
+		end $$
+DELIMITER ;
+
+
+-- Delete Rol
+
+DELIMITER $$
+	Create procedure sp_deleteRoles(in cod_rol int)
+		begin
+			delete from Roles
+				where id_rol = cod_rol;
+		end $$
+DELIMITER ;
+
+-- Search Rol
+
+DELIMITER $$
+	Create procedure sp_searchRoles(in cod_rol int)
+		begin
+			Select R.id_rol,
+			R.name_rol
+					from Roles R
+					where id_rol = cod_rol;
+        end $$
+DELIMITER ;
+
