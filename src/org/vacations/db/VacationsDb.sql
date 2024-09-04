@@ -101,3 +101,59 @@ DELIMITER $$
         end $$
 DELIMITER ;
 
+-- ----------------------------------------- Users Stored Procedure
+-- add users
+
+DELIMITER $$
+	Create procedure sp_addUsers(in nickname varchar(50), in mail varchar(100), contra varchar(100), in idRol int)
+		begin
+			insert into Users (username, email, contrasena, id_rol)
+				values (nickname, mail, contra, idRol);
+		end $$
+DELIMITER ;
+
+call sp_addUsers('efergo','efgl@ggmail.com','123456', 1);
+
+-- list users
+
+DELIMITER $$
+	Create procedure sp_listUser()
+		begin
+			select U.id_user, U.username, U.email, U.contrasena, U.id_rol
+				from Users U;
+        end $$
+DELIMITER ;
+
+-- update Users
+
+DELIMITER $$
+	Create procedure sp_updateUser(in idUser int ,in nickname varchar(50), in mail varchar(100), contra varchar(100), in idRol int)
+		begin
+			update Users
+            set username = nickname, email = mail, contrasena = contra, id_rol = idRol
+				where id_user = idUser;
+        end $$
+DELIMITER ;
+
+-- Search Users
+
+DELIMITER $$
+	Create procedure sp_searchUser(in idUser int)
+		begin
+			select U.id_user, U.username, U.email, U.contrasena, U.id_rol
+				from Users U
+					where id_user = idUser;
+        end $$
+DELIMITER ;
+
+-- delete Users
+
+DELIMITER $$
+	Create procedure sp_deleteUser(in idUser int)
+		begin
+			delete from Users	
+				where id_user = idUser;
+        end $$
+DELIMITER ;
+
+
