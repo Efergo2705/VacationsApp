@@ -1,25 +1,27 @@
-button {
+.button {
     -fx-background-color: black;
     -fx-opacity: 0.5;
     -fx-text-fill: white;
     -fx-border-width: 2.0;
     -fx-border-color: white;
-    -fx-font-size: 14.0 pt;
-    -fx-font-family: "Bookman Old Style";
     -fx-font-weight: bold;
     -fx-padding: 10.0px;
     -fx-background-radius: 5px;
     -fx-cursor: hand;
 }
 
-button:hover {
+.button:hover {
     -fx-background-color: darkgray;
     -fx-opacity: 1.0;
     -fx-text-fill: white;
+    -fx-padding: 10.0px;
+
 }
 
-button:pressed {
+.button:pressed {
     -fx-background-color: #f7dbc0;
     -fx-text-fill: black;
+    -fx-padding: 10.0px;
     -fx-opacity: 1.0;
+    -fx-border-width: 2.0;
 }
