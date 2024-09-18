@@ -44,14 +44,17 @@
             <Font name="Impact" size="23.0" />
          </font>
       </Label>
-      <Button fx:id="btnNuevo" layoutX="40.0" layoutY="180.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../../../../../../Progra/TonysKinal2023_2021340/src/org/estebangomez/resource/TonysKinal.css" text="Nuevo">
-         <graphic>
-            <ImageView fx:id="imgNuevo" fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Progra/TonysKinal2023_2021340/src/org/estebangomez/image/Create.png" />
-               </image>
-            </ImageView>
-         </graphic>
+      <Button fx:id="btnNuevo" layoutX="40.0" layoutY="201.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="Nuevo">
+         <font>
+            <Font name="Impact" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnNuevo1" layoutX="40.0" layoutY="348.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="Nuevo">
+         <font>
+            <Font name="Impact" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnNuevo2" layoutX="40.0" layoutY="271.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="Nuevo">
          <font>
             <Font name="Impact" size="20.0" />
          </font>
