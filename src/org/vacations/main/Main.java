@@ -5,40 +5,43 @@
  */
 package org.vacations.main;
 
+import java.io.InputStream;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.vacations.controller.LoginController;
 
 /**
  *
  * @author ESTEBAN-GOMEZ
  */
 public class Main extends Application {
-    
-    @Override
-    public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+    private final String PACKAGE_VIEW = "/org/vacations/view/";
+    private Stage stage;
+    private Scene scene;
             
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    @Override
+    public void start(Stage stagePrincipal) {
+        this.stage= stagePrincipal;
+        this.stage.setTitle("Vacations App");
+        stagePrincipal.setResizable(false);
+        login();
+        stagePrincipal.show();
+        stagePrincipal.centerOnScreen();
+    }
+    
+    
+    public void login(){
+        try {
+            LoginController login = (LoginController) setScene("LoginView.fxml", 750, 525);
+            login.setStagePrincipal(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -48,4 +51,16 @@ public class Main extends Application {
         launch(args);
     }
     
+    public Initializable setScene(String fxml, int width,int height) throws Exception{
+        Initializable init= null;
+        FXMLLoader chargeFXML = new FXMLLoader();
+        InputStream fileFXMl= Main.class.getResourceAsStream(PACKAGE_VIEW+fxml);
+        chargeFXML.setBuilderFactory(new JavaFXBuilderFactory());
+        chargeFXML.setLocation(Main.class.getResource(PACKAGE_VIEW+fxml));
+        scene = new Scene((BorderPane)chargeFXML.load(fileFXMl), width, height);
+        stage.setScene(scene);
+        stage.sizeToScene();
+        init = (Initializable) chargeFXML.getController();
+        return init;
+    }
 }
