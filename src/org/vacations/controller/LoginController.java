@@ -74,7 +74,7 @@ public class LoginController implements Initializable {
                     & login.getContrasena().equals(password)) {
                 x = getUsers().size();
                 limit = true;
-                System.out.println("estas logueado");
+                stagePrincipal.menuPrincipal();
             } else {
                 x++;
             }

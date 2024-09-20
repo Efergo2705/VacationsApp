@@ -10,10 +10,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.vacations.controller.LoginController;
+import org.vacations.controller.MainController;
 
 /**
  *
@@ -45,6 +48,12 @@ public class Main extends Application {
     }
 
     public void menuPrincipal(){
+        try {
+            MainController mainController = (MainController) setScene("MainView.fxml", 624, 681);
+            mainController.setStagePrincipal(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
     /**
@@ -60,7 +69,7 @@ public class Main extends Application {
         InputStream fileFXMl= Main.class.getResourceAsStream(PACKAGE_VIEW+fxml);
         chargeFXML.setBuilderFactory(new JavaFXBuilderFactory());
         chargeFXML.setLocation(Main.class.getResource(PACKAGE_VIEW+fxml));
-        scene = new Scene((BorderPane)chargeFXML.load(fileFXMl), width, height);
+        scene = new Scene(chargeFXML.load(fileFXMl), width, height);
         stage.setScene(scene);
         stage.sizeToScene();
         init = (Initializable) chargeFXML.getController();
