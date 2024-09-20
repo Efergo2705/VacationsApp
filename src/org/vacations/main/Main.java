@@ -7,16 +7,20 @@ package org.vacations.main;
 
 import java.io.InputStream;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.vacations.controller.LoginController;
 import org.vacations.controller.MainController;
+import org.vacations.controller.VacationController;
 
 /**
  *
@@ -26,7 +30,7 @@ public class Main extends Application {
     private final String PACKAGE_VIEW = "/org/vacations/view/";
     private Stage stage;
     private Scene scene;
-            
+    
     @Override
     public void start(Stage stagePrincipal) {
         this.stage= stagePrincipal;
@@ -51,6 +55,15 @@ public class Main extends Application {
         try {
             MainController mainController = (MainController) setScene("MainView.fxml", 624, 681);
             mainController.setStagePrincipal(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void vacation(){
+        try {
+            VacationController vacation = (VacationController) setScene("VacationView.fxml", 780, 450);
+            vacation.setStagePrincipal(this);
         } catch (Exception e) {
             e.printStackTrace();
         }

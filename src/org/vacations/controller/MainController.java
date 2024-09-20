@@ -30,6 +30,7 @@ public class MainController implements Initializable{
         this.stagePrincipal = stagePrincipal;
     }
     
-    
-    
+    public void getMenuVacation(){
+        stagePrincipal.vacation();
+    }
 }

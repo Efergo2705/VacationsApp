@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.vacations.controller.VacationController">
    <children>
       <ImageView fitHeight="450.0" fitWidth="720.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -39,7 +39,7 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -86,22 +86,22 @@
             <ComboBox fx:id="cmbState" disable="true" maxWidth="1.7976931348623157E308" prefHeight="25.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button fx:id="btnNuevo" layoutX="40.0" layoutY="174.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="NUEVO">
+      <Button fx:id="btnNuevo" layoutX="40.0" layoutY="174.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="NUEVO">
          <font>
             <Font name="Impact" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnEliminar" layoutX="40.0" layoutY="297.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="Eliminar">
+      <Button fx:id="btnEliminar" layoutX="40.0" layoutY="297.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="Eliminar">
          <font>
             <Font name="Impact" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnEditar" layoutX="40.0" layoutY="233.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="Editar">
+      <Button fx:id="btnEditar" layoutX="40.0" layoutY="233.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="Editar">
          <font>
             <Font name="Impact" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnCancelar" layoutX="40.0" layoutY="358.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="Cancelar">
+      <Button fx:id="btnCancelar" layoutX="40.0" layoutY="358.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="Cancelar">
          <font>
             <Font name="Impact" size="20.0" />
          </font>
