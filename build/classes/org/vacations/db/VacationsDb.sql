@@ -267,6 +267,7 @@ DELIMITER ;
 
 call sp_searchRequest(2);
 
+-- Delete Requestd
 -- Delete Request
 DELIMITER $$
 	create procedure sp_deleteRequest(in idRequest int)

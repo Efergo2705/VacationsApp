@@ -64,5 +64,8 @@ public class User {
         this.id_rol = id_rol;
     }
     
-    
+    @Override
+    public String toString(){
+        return id_rol+" | "+username;
+    }
 }

@@ -86,26 +86,31 @@
             <ComboBox fx:id="cmbState" disable="true" maxWidth="1.7976931348623157E308" prefHeight="25.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button fx:id="btnNuevo" layoutX="40.0" layoutY="174.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="NUEVO">
+      <Button fx:id="btnNuevo" layoutX="40.0" layoutY="174.0" mnemonicParsing="false" onAction="#add" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="NEW">
          <font>
             <Font name="Impact" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnEliminar" layoutX="40.0" layoutY="297.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="Eliminar">
+      <Button fx:id="btnEliminar" layoutX="40.0" layoutY="297.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="DELETE">
          <font>
             <Font name="Impact" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnEditar" layoutX="40.0" layoutY="233.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="Editar">
+      <Button fx:id="btnEditar" layoutX="40.0" layoutY="233.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="EDIT">
          <font>
             <Font name="Impact" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnCancelar" layoutX="40.0" layoutY="358.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="Cancelar">
+      <Button fx:id="btnCancelar" layoutX="40.0" layoutY="358.0" mnemonicParsing="false" onAction="#cancel" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="CANCEL">
          <font>
             <Font name="Impact" size="20.0" />
          </font>
       </Button>
+      <ImageView fitHeight="42.0" fitWidth="50.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#menuPrincipal" onMousePressed="#menuPrincipal" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/back.png" />
+         </image>
+      </ImageView>
 
    </children>
 </AnchorPane>
