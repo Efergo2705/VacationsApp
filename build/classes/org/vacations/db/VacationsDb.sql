@@ -113,6 +113,7 @@ DELIMITER $$
 DELIMITER ;
 
 call sp_addUsers('efergo','efgl@ggmail.com','123456', 1);
+call sp_addUsers('admin','admin@gmail.com','admin', 1);
 
 -- list users
 

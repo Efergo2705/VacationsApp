@@ -44,6 +44,9 @@ public class Main extends Application {
         }
     }
 
+    public void menuPrincipal(){
+    }
+    
     /**
      * @param args the command line arguments
      */

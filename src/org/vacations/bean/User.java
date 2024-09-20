@@ -18,6 +18,11 @@ public class User {
         this.contrasena = contrasena;
         this.id_rol = idRol;
     }
+    
+    public User(String username, String contrasena){
+        this.username = username;
+        this.contrasena = contrasena;
+    }
 
     public int getId_user() {
         return id_user;
