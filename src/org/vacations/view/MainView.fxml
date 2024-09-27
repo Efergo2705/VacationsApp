@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="681.0" prefWidth="624.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.vacations.controller.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="681.0" prefWidth="624.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.vacations.controller.MainController">
    <children>
       <ImageView fitHeight="700.0" fitWidth="625.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -16,11 +16,11 @@
       </ImageView>
       <MenuBar layoutY="-9.0" stylesheets="@../resource/Vacations.css">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="Opciones">
             <items>
-              <MenuItem mnemonicParsing="false" text="User" />
-                  <MenuItem mnemonicParsing="false" text="Role" />
-                  <MenuItem mnemonicParsing="false" onAction="#getMenuVacation" text="Vacations" />
+              <MenuItem mnemonicParsing="false" text="Usuario" />
+                  <MenuItem mnemonicParsing="false" text="Rol" />
+                  <MenuItem mnemonicParsing="false" onAction="#getMenuVacation" text="Vacaciones" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="?">
@@ -28,6 +28,11 @@
               <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="SALIR">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#closeSesion" text="Cerrar Sesión" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
    </children>

@@ -12,11 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.vacations.controller.LoginController;
 import org.vacations.controller.MainController;
@@ -41,7 +36,7 @@ public class Main extends Application {
         stagePrincipal.show();
         stagePrincipal.centerOnScreen();
     }
-    
+
     
     public void login(){
         try {

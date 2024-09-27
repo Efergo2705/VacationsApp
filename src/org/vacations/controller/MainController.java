@@ -11,7 +11,8 @@ import javafx.fxml.Initializable;
 import org.vacations.main.Main;
 /**
  *
- * @author bryan
+ *
+ * @author ESTEBAN-GOMEZ
  */
 public class MainController implements Initializable{
     private Main stagePrincipal;
@@ -32,5 +33,9 @@ public class MainController implements Initializable{
     
     public void getMenuVacation(){
         stagePrincipal.vacation();
+    }
+    
+    public void closeSesion(){
+        stagePrincipal.login();
     }
 }

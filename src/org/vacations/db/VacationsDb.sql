@@ -43,6 +43,13 @@ Create Table Request(
     Foreign key (id_vacation) references Vacation(id_vacation)
 );
 
+create table Holidays(
+	idHoliday int primary key not null auto_increment,
+    dayHoliday int not null,
+    monthHoliday int not null,
+    descriptionCelebration Varchar(250) not null
+);
+
 -- ----------------------------------------- Roles Stored Procedure
 -- Add Rol
 
@@ -113,6 +120,7 @@ DELIMITER $$
 DELIMITER ;
 
 call sp_addUsers('efergo','efgl@ggmail.com','123456', 1);
+call sp_addUsers('admin','admin@gmail.com','admin', 1);
 
 -- list users
 
@@ -123,6 +131,8 @@ DELIMITER $$
 				from Users U;
         end $$
 DELIMITER ;
+
+call sp_listuser();
 
 -- update Users
 
@@ -279,3 +289,84 @@ DELIMITER ;
 
 call sp_deleteRequest(2);
 call sp_listRequest();	
+
+-- -------------------Holidays Stored Procedures
+-- Add Holidays
+
+DELIMITER $$
+
+CREATE PROCEDURE sp_addHoliday(in dayHoliday int,
+    in monthHoliday int,
+    IN p_descriptionCelebration VARCHAR(250)
+)
+BEGIN
+    INSERT INTO Holidays (dayHoliday, monthHoliday, descriptionCelebration)
+    VALUES (dayHoliday, monthHoliday, p_descriptionCelebration);
+END$$
+
+DELIMITER ;
+
+CALL sp_addHoliday(24, 12, 'Navidad');
+
+-- Read Holidays
+DELIMITER $$
+
+CREATE PROCEDURE sp_listHolidays()
+BEGIN
+    SELECT * FROM Holidays;
+END$$
+
+DELIMITER ;
+
+CALL sp_listHolidays();
+
+-- Search Holiday
+DELIMITER $$
+
+CREATE PROCEDURE sp_searchHoliday(
+    IN p_idHoliday INT
+)
+BEGIN
+    SELECT * FROM Holidays
+    WHERE idHoliday = p_idHoliday;
+END$$
+
+DELIMITER ;
+
+CALL sp_searchHoliday(1);
+
+-- Update Holidays
+DELIMITER $$
+
+CREATE PROCEDURE sp_updateHoliday(
+    IN p_idHoliday INT,
+    IN p_dayHoliday int,
+    IN p_monthHoliday int,
+    IN p_descriptionCelebration VARCHAR(250)
+)
+BEGIN
+    UPDATE Holidays
+    SET dayHoliday = p_dayHoliday,
+		monthHoliday = p_monthHoliday,
+        descriptionCelebration = p_descriptionCelebration
+    WHERE idHoliday = p_idHoliday;
+END$$
+
+DELIMITER ;
+
+CALL sp_updateHoliday(1, dayHoliday,monthHoliday, 'Navidad');
+
+-- Delete Holiday
+DELIMITER $$
+
+CREATE PROCEDURE sp_deleteHoliday(
+    IN p_idHoliday INT
+)
+BEGIN
+    DELETE FROM Holidays
+    WHERE idHoliday = p_idHoliday;
+END$$
+
+DELIMITER ;
+
+CALL sp_DeleteHoliday(1);

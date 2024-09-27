@@ -24,7 +24,7 @@ import org.vacations.main.Main;
 
 /**
  *
- * @author bryan
+ * @author ESTEBAN-GOMEZ
  */
 public class LoginController implements Initializable {
 

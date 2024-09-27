@@ -11,6 +11,7 @@ public class Vacation {
     private String state;
 
     public Vacation() {
+        
     }
 
     public Vacation(int id_vacation, int id_user, Date start_date, Date end_date, String comments, String state) {
