@@ -36,7 +36,7 @@
    <right>
       <AnchorPane prefHeight="526.0" prefWidth="438.0" style="-fx-background-color: #006d5e;" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="txtUsername" layoutX="117.0" layoutY="196.0" prefWidth="206.0" style="-fx-background-color: trans; -fx-border-color: Black; -fx-border-width: 0px 0px 1px;" text="Nombre de usuario" />
+            <TextField fx:id="txtUsername" layoutX="117.0" layoutY="196.0" prefWidth="206.0" promptText="Nombre de usuario" style="-fx-background-color: trans; -fx-border-color: Black; -fx-border-width: 0px 0px 1px;" />
             <PasswordField fx:id="txtPassword" layoutX="117.0" layoutY="274.0" prefWidth="206.0" promptText="Contraseña" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 0px 0px 1px;" />
             <Button fx:id="btnLogin" layoutX="145.0" layoutY="377.0" mnemonicParsing="false" onAction="#login" stylesheets="@../resource/Buttons.css" text="Iniciar Sesión">
                <font>

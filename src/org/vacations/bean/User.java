@@ -66,6 +66,6 @@ public class User {
     
     @Override
     public String toString(){
-        return id_rol+" | "+username;
+        return id_user+" | "+username;
     }
 }

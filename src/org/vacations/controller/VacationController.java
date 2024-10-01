@@ -6,13 +6,11 @@
 package org.vacations.controller;
 
 import java.net.URL;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -29,12 +27,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.util.converter.LocalDateStringConverter;
 import javax.swing.JOptionPane;
 import org.vacations.bean.State;
 import org.vacations.bean.User;
@@ -57,13 +51,13 @@ public class VacationController implements Initializable {
     private operation typeOperation = operation.NONE;
     private ObservableList<State> listStates;
     @FXML
-    private Button btnNuevo;
+    private Button btnRequest;
     @FXML
-    private Button btnEditar;
+    private Button btnEdit;
     @FXML
-    private Button btnEliminar;
+    private Button btnDelete;
     @FXML
-    private Button btnCancelar;
+    private Button btnCancel;
     @FXML
     private TextField txtIdVacation;
     @FXML
@@ -92,6 +86,7 @@ public class VacationController implements Initializable {
     private TableColumn colComments;
     @FXML
     private TableColumn colState;
+    private User userLogued = new LoginController().getUserLogued();
     private ObservableList<Vacation> listVacations;
     private SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -139,7 +134,7 @@ public class VacationController implements Initializable {
             PreparedStatement ps = Conexion.getInstance().getConexion().prepareCall("{call sp_listHolidays}");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                if (rs.getInt("dayHoliday") == date.getDayOfMonth() && rs.getInt("monthHoliday")==date.getMonthValue() ) {
+                if (rs.getInt("dayHoliday") == date.getDayOfMonth() && rs.getInt("monthHoliday") == date.getMonthValue()) {
                     exists = true;
                 }
             }
@@ -202,35 +197,60 @@ public class VacationController implements Initializable {
         return user;
     }
 
+    public void getUserCmb() {
+        ArrayList<User> userList = new ArrayList<>();
+        userList.add(userLogued);
+        cmbIdUser.setItems(FXCollections.observableArrayList(userList));
+        cmbIdUser.getSelectionModel().select(0);
+    }
+
+    public int getIdRole(String role) {
+        int idRole = 0;
+        switch (role) {
+            case "PROCESSING":
+                idRole = 1;
+                break;
+            case "ACCEPTED":
+                idRole = 2;
+                break;
+            case "REFUSED":
+                idRole = 3;
+                break;
+            default:
+        }
+        return idRole;
+    }
+
     public void getElement() {
         operation stateOperation = typeOperation;
-        if (stateOperation != typeOperation.ADD && stateOperation != typeOperation.EDIT && tblVacations.getSelectionModel() != null) {
-            txtIdVacation.setText(String.valueOf(((Vacation) tblVacations.getSelectionModel().getSelectedItem())
-                    .getId_vacation()));
-            cmbIdUser.getSelectionModel().select(getUser(((Vacation) tblVacations.getSelectionModel().getSelectedItem()).getId_user()));
-            txtAreaComments.setText(((Vacation) tblVacations.getSelectionModel().getSelectedItem()).getComments());
-            startDate.setValue(LocalDate.parse(
-                    ((Vacation) tblVacations.getSelectionModel().getSelectedItem()).getStart_date().toString(),
-                     DateTimeFormatter.ISO_LOCAL_DATE)
-            );
-            endDate.setValue(LocalDate.parse(
-                    ((Vacation) tblVacations.getSelectionModel().getSelectedItem()).getEnd_date().toString(),
-                    DateTimeFormatter.ISO_LOCAL_DATE)
-            );
-            cmbState.getSelectionModel().select(((Vacation) tblVacations.getSelectionModel().getSelectedItem()).getState());
-        }else{
-            
+        if (stateOperation != typeOperation.ADD && stateOperation != typeOperation.EDIT) {
+            if (tblVacations.getSelectionModel().getSelectedItem() != null) {
+                txtIdVacation.setText(String.valueOf(((Vacation) tblVacations.getSelectionModel().getSelectedItem())
+                        .getId_vacation()));
+                cmbIdUser.getSelectionModel().select(getUser(((Vacation) tblVacations.getSelectionModel().getSelectedItem()).getId_user()));
+                txtAreaComments.setText(((Vacation) tblVacations.getSelectionModel().getSelectedItem()).getComments());
+                startDate.setValue(LocalDate.parse(
+                        ((Vacation) tblVacations.getSelectionModel().getSelectedItem()).getStart_date().toString(),
+                        DateTimeFormatter.ISO_LOCAL_DATE)
+                );
+                endDate.setValue(LocalDate.parse(
+                        ((Vacation) tblVacations.getSelectionModel().getSelectedItem()).getEnd_date().toString(),
+                        DateTimeFormatter.ISO_LOCAL_DATE)
+                );
+                cmbState.getSelectionModel().select(((Vacation) tblVacations.getSelectionModel().getSelectedItem()).getState());
+            }
+        } else {
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        startDate.setDayCellFactory(cells -> getAllCells());
-        endDate.setDayCellFactory(cells -> getAllCells());
-        cmbIdUser.setItems(login.getUsers());
         cmbState.setItems(getListState());
         cmbState.getSelectionModel().selectFirst();
+        startDate.setDayCellFactory(x -> getAllCells());
+        endDate.setDayCellFactory(x -> getAllCells());
         getData();
+        getUserCmb();
     }
 
     public void add() {
@@ -238,17 +258,18 @@ public class VacationController implements Initializable {
             case NONE:
                 controlsOn();
                 clearControls();
-                btnNuevo.setText("CONFIRMAR");
-                btnEditar.disableProperty().setValue(true);
-                btnEliminar.disableProperty().setValue(true);
+                getUserCmb();
+                btnRequest.setText("CONFIRMAR");
+                btnEdit.disableProperty().setValue(true);
+                btnDelete.disableProperty().setValue(true);
                 cmbState.getSelectionModel().select(0);
                 typeOperation = typeOperation.ADD;
                 break;
             case ADD:
                 save();
-                btnNuevo.setText("SOLICITAR");
-                btnEditar.disableProperty().setValue(false);
-                btnEliminar.disableProperty().setValue(false);
+                btnRequest.setText("SOLICITAR");
+                btnEdit.disableProperty().setValue(false);
+                btnDelete.disableProperty().setValue(false);
                 getData();
                 clearControls();
                 controlsOff();
@@ -257,18 +278,69 @@ public class VacationController implements Initializable {
         }
     }
 
+    public void edit() {
+        if (tblVacations.getSelectionModel().getSelectedItem() != null) {
+            User userSelected = getUser(((Vacation) tblVacations.getSelectionModel().getSelectedItem()).getId_user());
+            switch (typeOperation) {
+                case NONE:
+                    switch (userLogued.getId_rol()) {
+                        case 1:
+                            controlsOn();
+                            cmbState.setDisable(false);
+                            break;
+                        case 2:
+                            if (userSelected.getId_rol() != 2 && userSelected.getId_rol() != 1) {
+                                cmbState.setDisable(false);
+                            } else if (userLogued.getId_user() == userSelected.getId_user()) {
+                                controlsOn();
+                            }
+                        case 3:
+                            if (userSelected.getId_user() == userLogued.getId_user()) {
+                                controlsOn();
+                            }
+                            break;
+                    }
+                    btnEdit.setText("ACTUALIZAR");
+                    btnRequest.setDisable(true);
+                    btnDelete.setDisable(true);
+                    typeOperation = typeOperation.EDIT;
+                    break;
+                case EDIT:
+                    update();
+                    btnEdit.setText("EDITAR");
+                    btnRequest.setDisable(false);
+                    btnDelete.disableProperty().setValue(false);
+                    getData();
+                    clearControls();
+                    controlsOff();
+                    typeOperation = typeOperation.NONE;
+                    break;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado un elemento");
+        }
+    }
+
     public void cancel() {
         switch (typeOperation) {
             case ADD:
-                btnNuevo.setText("SOLICITAR");
-                btnEditar.disableProperty().setValue(false);
-                btnEliminar.disableProperty().setValue(false);
+                btnRequest.setText("SOLICITAR");
+                btnEdit.disableProperty().setValue(false);
+                btnDelete.disableProperty().setValue(false);
+                clearControls();
+                controlsOff();
+                typeOperation = typeOperation.NONE;
+                break;
+            case EDIT:
+                btnEdit.setText("EDITAR");
+                btnRequest.setDisable(false);
+                btnDelete.disableProperty().setValue(false);
                 clearControls();
                 controlsOff();
                 typeOperation = typeOperation.NONE;
                 break;
             default:
-                
+
         }
     }
 
@@ -287,13 +359,27 @@ public class VacationController implements Initializable {
         }
     }
 
+    public void update() {
+        try {
+            PreparedStatement ps = Conexion.getInstance().getConexion().prepareCall("{call sp_updateVacation(?,?,?,?,?,?)}");
+            ps.setInt(1, Integer.valueOf(txtIdVacation.getText()));
+            ps.setInt(2, ((User) cmbIdUser.getSelectionModel().getSelectedItem()).getId_user());
+            ps.setString(3, startDate.getValue().toString());
+            ps.setString(4, endDate.getValue().toString());
+            ps.setString(5, txtAreaComments.getText());
+            ps.setString(6, cmbState.getSelectionModel().selectedItemProperty().getValue().toString());
+            ps.execute();
+            JOptionPane.showMessageDialog(null, "Se ha hecho actualizado la solicitud", "Vacation", JOptionPane.CANCEL_OPTION);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void controlsOn() {
-        cmbIdUser.disableProperty().setValue(false);
         startDate.disableProperty().setValue(false);
         startDate.setEditable(true);
         endDate.disableProperty().setValue(false);
         endDate.setEditable(true);
-        cmbState.disableProperty().setValue(true);
         txtAreaComments.editableProperty().setValue(true);
     }
 

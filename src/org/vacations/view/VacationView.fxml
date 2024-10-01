@@ -91,22 +91,22 @@
             <DatePicker fx:id="endDate" disable="true" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button fx:id="btnNuevo" layoutX="40.0" layoutY="174.0" mnemonicParsing="false" onAction="#add" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="SOLICITAR">
+      <Button fx:id="btnRequest" layoutX="40.0" layoutY="174.0" mnemonicParsing="false" onAction="#add" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="SOLICITAR">
          <font>
             <Font name="Impact" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnEliminar" layoutX="40.0" layoutY="297.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="ELIMINAR">
+      <Button fx:id="btnDelete" layoutX="40.0" layoutY="297.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="ELIMINAR">
          <font>
             <Font name="Impact" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnEditar" layoutX="40.0" layoutY="233.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="EDITAR">
+      <Button fx:id="btnEdit" layoutX="40.0" layoutY="233.0" mnemonicParsing="false" onAction="#edit" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="EDITAR">
          <font>
             <Font name="Impact" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnCancelar" layoutX="40.0" layoutY="358.0" mnemonicParsing="false" onAction="#cancel" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="CANCELAR">
+      <Button fx:id="btnCancel" layoutX="40.0" layoutY="358.0" mnemonicParsing="false" onAction="#cancel" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="CANCELAR">
          <font>
             <Font name="Impact" size="20.0" />
          </font>
@@ -116,7 +116,7 @@
             <Image url="@../image/back.png" />
          </image>
       </ImageView>
-      <TableView fx:id="tblVacations" layoutX="242.0" layoutY="229.0" onKeyReleased="#getElement" onMouseClicked="#getElement" onMousePressed="#getElement" prefHeight="200.0" prefWidth="512.0">
+      <TableView fx:id="tblVacations" layoutX="242.0" layoutY="229.0" onKeyReleased="#getElement" onMouseClicked="#getElement" prefHeight="200.0" prefWidth="512.0">
         <columns>
           <TableColumn fx:id="colIdVacation" prefWidth="75.0" text="ID Vacación" />
           <TableColumn fx:id="colIdUser" prefWidth="75.0" text="ID Usuario" />

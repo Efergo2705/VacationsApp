@@ -31,8 +31,8 @@ public class Main extends Application {
         this.stage= stagePrincipal;
         this.stage.setTitle("Vacations App");
         stagePrincipal.setResizable(false);
-        //login();
-        vacation();
+        login();
+        //vacation();
         stagePrincipal.show();
         stagePrincipal.centerOnScreen();
     }

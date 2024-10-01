@@ -61,8 +61,9 @@ DELIMITER $$
 		end $$
 DELIMITER ;
 
+call sp_addRoles('Administrador');
 call sp_addRoles('Jefe');
-call sp_addRoles('trabajador');
+call sp_addRoles('Trabajador');
 
 -- List Rol
 
@@ -119,8 +120,10 @@ DELIMITER $$
 		end $$
 DELIMITER ;
 
-call sp_addUsers('efergo','efgl@ggmail.com','123456', 1);
 call sp_addUsers('admin','admin@gmail.com','admin', 1);
+call sp_addUsers('efergo','efgl@gmail.com','a', 2);
+call sp_addUsers('a','a@gmail.com','a', 2);
+call sp_addUsers('user','user@ggmail.com','user', 3);
 
 -- list users
 
@@ -354,7 +357,7 @@ END$$
 
 DELIMITER ;
 
-CALL sp_updateHoliday(1, dayHoliday,monthHoliday, 'Navidad');
+CALL sp_updateHoliday(1, 12,24, 'Navidad');
 
 -- Delete Holiday
 DELIMITER $$
@@ -369,4 +372,4 @@ END$$
 
 DELIMITER ;
 
-CALL sp_DeleteHoliday(1);
+#CALL sp_DeleteHoliday(1);

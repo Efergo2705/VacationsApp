@@ -36,7 +36,8 @@ public class LoginController implements Initializable {
     private TextField txtUsername;
     @FXML
     private PasswordField txtPassword;
-
+    private static User userLogued;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
@@ -72,6 +73,11 @@ public class LoginController implements Initializable {
             String password = getUsers().get(x).getContrasena();
             if (login.getUsername().equals(user)
                     & login.getContrasena().equals(password)) {
+                userLogued= new User(getUsers().get(x).getId_user()
+                        ,getUsers().get(x).getUsername()
+                ,getUsers().get(x).getEmail()
+                ,getUsers().get(x).getContrasena()
+                ,getUsers().get(x).getId_rol());
                 x = getUsers().size();
                 limit = true;
                 stagePrincipal.menuPrincipal();
@@ -84,6 +90,14 @@ public class LoginController implements Initializable {
         }
     }
 
+    public User getUserLogued(){
+        return this.userLogued;
+    }
+    
+    public void setUserLogued(User userLogued){
+        this.userLogued = userLogued;
+    }
+    
     public Main getStagePrincipal() {
         return stagePrincipal;
     }

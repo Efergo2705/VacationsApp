@@ -18,17 +18,12 @@
         <menus>
           <Menu mnemonicParsing="false" text="Opciones">
             <items>
-              <MenuItem mnemonicParsing="false" text="Usuario" />
-                  <MenuItem mnemonicParsing="false" text="Rol" />
-                  <MenuItem mnemonicParsing="false" onAction="#getMenuVacation" text="Vacaciones" />
+              <MenuItem fx:id="menuItemUser" mnemonicParsing="false" text="Usuario" />
+                  <MenuItem fx:id="menuItemRole" mnemonicParsing="false" text="Rol" />
+                  <MenuItem fx:id="menuItemVacation" mnemonicParsing="false" onAction="#getMenuVacation" text="Vacaciones" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="?">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-            <Menu mnemonicParsing="false" text="SALIR">
+            <Menu mnemonicParsing="false" text="Salir">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#closeSesion" text="Cerrar Sesión" />
                </items>
