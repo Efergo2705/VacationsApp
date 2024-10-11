@@ -18,7 +18,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Opciones">
             <items>
-              <MenuItem fx:id="menuItemUser" mnemonicParsing="false" text="Usuario" />
+              <MenuItem fx:id="menuItemUser" mnemonicParsing="false" onAction="#getMenuUser" text="Usuario" />
                   <MenuItem fx:id="menuItemRole" mnemonicParsing="false" text="Rol" />
                   <MenuItem fx:id="menuItemVacation" mnemonicParsing="false" onAction="#getMenuVacation" text="Vacaciones" />
             </items>

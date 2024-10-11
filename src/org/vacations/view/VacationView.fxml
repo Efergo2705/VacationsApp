@@ -32,13 +32,13 @@
       </ImageView>
       <Rectangle fill="#229a88" height="450.0" layoutX="210.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="570.0" />
       <Rectangle arcHeight="35.0" arcWidth="35.0" fill="#006d5e" height="207.0" layoutX="232.0" layoutY="225.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="530.0" />
-      <Rectangle arcHeight="35.0" arcWidth="35.0" fill="#006d5e" height="188.0" layoutX="232.0" layoutY="22.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="530.0" />
-      <GridPane fx:id="gridPane" alignment="BOTTOM_CENTER" layoutX="236.0" layoutY="22.0" prefHeight="188.0" prefWidth="518.0">
+      <Rectangle arcHeight="35.0" arcWidth="35.0" fill="#006d5e" height="188.0" layoutX="222.0" layoutY="22.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="554.0" />
+      <GridPane fx:id="gridPane" alignment="BOTTOM_CENTER" layoutX="226.0" layoutY="22.0" prefHeight="188.0" prefWidth="481.0">
         <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="109.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="160.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="173.0" minWidth="10.0" prefWidth="78.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.0" minWidth="10.0" prefWidth="169.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="112.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="163.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="173.0" minWidth="10.0" prefWidth="85.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.0" minWidth="10.0" prefWidth="125.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -96,7 +96,7 @@
             <Font name="Impact" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnDelete" layoutX="40.0" layoutY="297.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="ELIMINAR">
+      <Button fx:id="btnDelete" layoutX="40.0" layoutY="297.0" mnemonicParsing="false" onAction="#delete" prefHeight="17.0" prefWidth="124.0" styleClass="button1" stylesheets="@../resource/Buttons.css" text="ELIMINAR">
          <font>
             <Font name="Impact" size="20.0" />
          </font>
@@ -126,6 +126,7 @@
             <TableColumn fx:id="colState" prefWidth="93.0" text="Estado" />
         </columns>
       </TableView>
+      <Button fx:id="btnCalculateDays" disable="true" layoutX="690.0" layoutY="104.0" mnemonicParsing="false" onAction="#getListDays" rotate="-90.0" text="Días de vacaciones" />
 
    </children>
 </AnchorPane>

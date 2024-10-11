@@ -46,7 +46,7 @@ public class VacationController implements Initializable {
     private LoginController login = new LoginController();
 
     private enum operation {
-        NONE, ADD, EDIT
+        NONE, ADD, EDIT, DELETE
     };
     private operation typeOperation = operation.NONE;
     private ObservableList<State> listStates;
@@ -56,6 +56,8 @@ public class VacationController implements Initializable {
     private Button btnEdit;
     @FXML
     private Button btnDelete;
+    @FXML
+    private Button btnCalculateDays;
     @FXML
     private Button btnCancel;
     @FXML
@@ -86,8 +88,10 @@ public class VacationController implements Initializable {
     private TableColumn colComments;
     @FXML
     private TableColumn colState;
+
     private User userLogued = new LoginController().getUserLogued();
     private ObservableList<Vacation> listVacations;
+    private static ArrayList<String> listDaysVacations = new ArrayList<>();
     private SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
 
     public ObservableList<State> getListState() {
@@ -114,6 +118,9 @@ public class VacationController implements Initializable {
                 this.setTextFill(Color.BLACK);
 
                 DayOfWeek dayweek = date.getDayOfWeek();
+                if (date.isBefore(LocalDate.now()) && typeOperation != operation.EDIT) {
+                    this.setDisable(true);
+                }
 
                 if (dayweek == DayOfWeek.SATURDAY || dayweek == DayOfWeek.SUNDAY) {
                     this.setTextFill(Color.CADETBLUE);
@@ -128,6 +135,14 @@ public class VacationController implements Initializable {
         return cell;
     }
 
+    public static ArrayList<String> getDaysVacations(){
+        return listDaysVacations;
+    }
+    
+    public static void setDaysVacations(ArrayList<String> newDaysVacations){
+        listDaysVacations = newDaysVacations;
+    }
+    
     public boolean getFilterDays(LocalDate date) {
         boolean exists = false;
         try {
@@ -145,13 +160,54 @@ public class VacationController implements Initializable {
         return exists;
     }
 
+    public boolean validateDate(LocalDate date) {
+        boolean holiday = getFilterDays(date);
+        boolean exists = false;
+        if (holiday==true) {
+            exists = true;
+        }
+        if (date.getDayOfWeek().equals(DayOfWeek.SATURDAY) || date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+            exists = true;
+        }
+        return exists;
+    }
+
+    public void calculateDaysVacations(LocalDate startDate, LocalDate endDate) {
+        int startDayMonth = startDate.getDayOfMonth();
+        int startMonth = startDate.getMonthValue();
+        int startYear = startDate.getYear();
+        int endDayMonth = endDate.getDayOfMonth();
+        int endMonth = endDate.getMonthValue();
+        int endYear = endDate.getYear();
+        while (startDayMonth != endDayMonth || startMonth != endMonth || startYear != endYear) {
+            if (startDayMonth <= startDate.getMonth().maxLength()) {
+                startDayMonth++;
+            }
+            if (startDayMonth > startDate.getMonth().maxLength()) {
+                startDayMonth = 1;
+                startMonth++;
+            }
+            if (startMonth > 12) {
+                startYear++;
+                startMonth = 1;
+                startDayMonth = 1;
+            }
+            LocalDate dateValue = LocalDate.of(startYear, startMonth, startDayMonth);
+            boolean validate = this.validateDate(dateValue);
+            if (validate == false) {    
+                listDaysVacations.add(dateValue.getDayOfWeek()+" "
+                        +startDayMonth+" "+dateValue.getMonth() +" "+startYear);
+            }
+        }
+    }
+
     public void getData() {
         tblVacations.setItems(getVacations());
         colIdVacation.setCellValueFactory(new PropertyValueFactory<Vacation, Integer>("id_vacation"));
         colIdUser.setCellValueFactory(new PropertyValueFactory<Vacation, Integer>("id_user"));
-        colStartDate.setCellValueFactory(new PropertyValueFactory<Vacation, Integer>("start_date"));
-        colEndDate.setCellValueFactory(new PropertyValueFactory<Vacation, Integer>("end_date"));
-        colComments.setCellValueFactory(new PropertyValueFactory<Vacation, Integer>("comments"));
+        colStartDate.setCellValueFactory(new PropertyValueFactory<Vacation, java.util.Date>("start_date"));
+        colEndDate.setCellValueFactory(new PropertyValueFactory<Vacation, java.util.Date>("end_date"));
+        colComments.setCellValueFactory(new PropertyValueFactory<Vacation, String>("comments"));
         colState.setCellValueFactory(new PropertyValueFactory<Vacation, Integer>("state"));
     }
 
@@ -238,9 +294,15 @@ public class VacationController implements Initializable {
                         DateTimeFormatter.ISO_LOCAL_DATE)
                 );
                 cmbState.getSelectionModel().select(((Vacation) tblVacations.getSelectionModel().getSelectedItem()).getState());
+                btnCalculateDays.setDisable(false);
             }
         } else {
         }
+    }
+
+    public void getListDays() {
+        calculateDaysVacations(startDate.getValue(),endDate.getValue());
+        stagePrincipal.daysVacation();
     }
 
     @Override
@@ -249,6 +311,8 @@ public class VacationController implements Initializable {
         cmbState.getSelectionModel().selectFirst();
         startDate.setDayCellFactory(x -> getAllCells());
         endDate.setDayCellFactory(x -> getAllCells());
+        endDate.setEditable(false);
+        startDate.setEditable(false);
         getData();
         getUserCmb();
     }
@@ -321,6 +385,28 @@ public class VacationController implements Initializable {
         }
     }
 
+    public void delete() {
+        if (tblVacations.getSelectionModel().getSelectedItem() != null) {
+            int op = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar este registro?", "Vacation", JOptionPane.YES_NO_OPTION, JOptionPane.CANCEL_OPTION);
+            if (op == JOptionPane.YES_NO_OPTION) {
+                try {
+                    PreparedStatement ps = Conexion.getInstance().getConexion().prepareCall("{call sp_deleteVacation(?)}");
+                    ps.setInt(1, Integer.parseInt(txtIdVacation.getText()));
+                    ps.execute();
+                    clearControls();
+                    getData();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                clearControls();
+                getData();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado un elemento");
+        }
+    }
+
     public void cancel() {
         switch (typeOperation) {
             case ADD:
@@ -377,10 +463,9 @@ public class VacationController implements Initializable {
 
     public void controlsOn() {
         startDate.disableProperty().setValue(false);
-        startDate.setEditable(true);
         endDate.disableProperty().setValue(false);
-        endDate.setEditable(true);
         txtAreaComments.editableProperty().setValue(true);
+        btnCalculateDays.setDisable(true);
     }
 
     public void controlsOff() {
@@ -398,6 +483,7 @@ public class VacationController implements Initializable {
         cmbState.getSelectionModel().select(0);
         startDate.setValue(null);
         endDate.setValue(null);
+        btnCalculateDays.setDisable(true);
     }
 
     public void menuPrincipal() {

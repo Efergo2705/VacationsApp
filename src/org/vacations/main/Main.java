@@ -14,7 +14,9 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.vacations.controller.LoginController;
+import org.vacations.controller.DaysVacationsController;
 import org.vacations.controller.MainController;
+import org.vacations.controller.UserController;
 import org.vacations.controller.VacationController;
 
 /**
@@ -60,6 +62,24 @@ public class Main extends Application {
         try {
             VacationController vacation = (VacationController) setScene("VacationView.fxml", 780, 450);
             vacation.setStagePrincipal(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void user(){
+         try {
+            UserController user = (UserController) setScene("UserView.fxml", 780, 450);
+            user.setStagePrincipal(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void daysVacation(){
+        try {
+            DaysVacationsController dayVacation = (DaysVacationsController) setScene("DaysVacations.fxml", 624, 681);
+            dayVacation.setStagePrincipal(this);
         } catch (Exception e) {
             e.printStackTrace();
         }

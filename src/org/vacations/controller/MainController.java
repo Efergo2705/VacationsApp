@@ -10,7 +10,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
-import javax.swing.JOptionPane;
 import org.vacations.bean.User;
 import org.vacations.main.Main;
 
@@ -34,6 +33,7 @@ public class MainController implements Initializable {
             case 1:
                 break;
             case 2:
+                menuItemRole.setVisible(false);
                 break;
             case 3:
                 menuItemRole.setVisible(false);
@@ -53,6 +53,10 @@ public class MainController implements Initializable {
 
     public void getMenuVacation() {
         stagePrincipal.vacation();
+    }
+    
+    public void getMenuUser(){
+        stagePrincipal.user();
     }
 
     public void closeSesion() {
